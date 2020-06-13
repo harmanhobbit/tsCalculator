@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ButtonDefinitions from "./buttondefines"
 
 
-export interface calculator_buttonProps {value: number, handleClick: any}
+export interface calculator_buttonProps {value: number, handleClick: any, buttonClass: string}
 
 export class Calculator_button extends React.Component<calculator_buttonProps, {}>{
     checkForSingleDigit(digit: number): string{
@@ -63,7 +63,7 @@ export class Calculator_button extends React.Component<calculator_buttonProps, {
 
     render(){
         return <input   type="button" 
-                        className="button_style" 
+                        className={this.props.buttonClass} 
                         value={this.checkForSingleDigit(this.props.value)} 
                         onClick={() => this.clickHandler(this.props.value)} />
     }

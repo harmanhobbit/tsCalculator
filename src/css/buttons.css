@@ -14,3 +14,20 @@
     background-color: grey;
     transition: 0.3s;
 }
+
+.operator_style{
+    width: 100px;
+    height: 100px;
+    font-size: 50px;
+    background-color: coral;
+    transition: 1s;
+}
+
+.operator_style:hover{
+    background-color: orange;
+}
+
+.operator_style:focus{
+    background-color: darkorange;
+    transition: 0.3s;
+}

@@ -12,11 +12,30 @@ var operator: number = ButtonDefinitions.NUMBER_BUTTON_PLUS;
 var decimalTracker: number = 0;
 
 let buttonLayout = [
-    {col1: ButtonDefinitions.NUMBER_BUTTON_CLEAR, col2: ButtonDefinitions.NUMBER_BUTTON_INVERT, col3: ButtonDefinitions.NUMBER_BUTTON_PERCENT, col4: ButtonDefinitions.NUMBER_BUTTON_DIVIDE},
-    {col1: 7, col2: 8, col3: 9, col4: ButtonDefinitions.NUMBER_BUTTON_MULTIPLY},
-    {col1: 4, col2: 5, col3: 6, col4: ButtonDefinitions.NUMBER_BUTTON_MINUS},
-    {col1: 1, col2: 2, col3: 3, col4: ButtonDefinitions.NUMBER_BUTTON_PLUS},
-    {col1: 0, col2: 0, col3: ButtonDefinitions.NUMBER_BUTTON_DECIMAL_POINT, col4: ButtonDefinitions.NUMBER_BUTTON_EQUALS},
+    {col1: ButtonDefinitions.NUMBER_BUTTON_CLEAR, col1Class: "operator_style",
+    col2: ButtonDefinitions.NUMBER_BUTTON_INVERT,  col2Class: "operator_style",
+    col3: ButtonDefinitions.NUMBER_BUTTON_PERCENT,  col3Class: "operator_style",
+    col4: ButtonDefinitions.NUMBER_BUTTON_DIVIDE,  col4Class: "operator_style"},
+
+    {col1: 7, col1Class: "button_style",
+    col2: 8, col2Class: "button_style",
+    col3: 9, col3Class: "button_style",
+    col4: ButtonDefinitions.NUMBER_BUTTON_MULTIPLY, col4Class: "operator_style"},
+
+    {col1: 4, col1Class: "button_style",
+    col2: 5, col2Class: "button_style",
+    col3: 6, col3Class: "button_style",
+    col4: ButtonDefinitions.NUMBER_BUTTON_MINUS, col4Class: "operator_style"},
+
+    {col1: 1, col1Class: "button_style",
+    col2: 2, col2Class: "button_style",
+    col3: 3, col3Class: "button_style",
+    col4: ButtonDefinitions.NUMBER_BUTTON_PLUS, col4Class: "operator_style"},
+
+    {col1: 0, col1Class: "button_style",
+    col2: 0, col2Class: "button_style",
+    col3: ButtonDefinitions.NUMBER_BUTTON_DECIMAL_POINT, col3Class: "button_style",
+    col4: ButtonDefinitions.NUMBER_BUTTON_EQUALS, col4Class: "operator_style"},
 ]
 
 export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber: number}>{
@@ -28,14 +47,30 @@ export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber:
     generateButtons(){
         return buttonLayout.map((button: {
             col1: number;
+            col1Class: string;
             col2: number;
+            col2Class: string;
             col3: number;
-            col4: number}) =>
+            col3Class: string;
+            col4: number;
+            col4Class: string}) =>
             <div>
-                <Calculator_button value={button.col1} handleClick={() => this.clickHandler(button.col1)} />
-                <Calculator_button value={button.col2} handleClick={() => this.clickHandler(button.col2)} />
-                <Calculator_button value={button.col3} handleClick={() => this.clickHandler(button.col3)} />
-                <Calculator_button value={button.col4} handleClick={() => this.clickHandler(button.col4)} />
+                <Calculator_button 
+                    value={button.col1} 
+                    handleClick={() => this.clickHandler(button.col1)} 
+                    buttonClass={button.col1Class} />
+                <Calculator_button 
+                    value={button.col2} 
+                    handleClick={() => this.clickHandler(button.col2)}
+                    buttonClass={button.col1Class} />
+                <Calculator_button 
+                    value={button.col3} 
+                    handleClick={() => this.clickHandler(button.col3)}
+                    buttonClass={button.col3Class} />
+                <Calculator_button 
+                    value={button.col4} 
+                    handleClick={() => this.clickHandler(button.col4)}
+                    buttonClass={button.col4Class} />
             </div>)
     }
 
