@@ -228,8 +228,7 @@ export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber:
                     <Calculator_button  value={button.col} 
                                         handleClick={() => this.clickHandler(button.col)} 
                                         buttonClass={button.colClass} />
-            )};
-            
+            )}
         </div>
     }
 }
