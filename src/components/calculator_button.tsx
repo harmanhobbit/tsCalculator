@@ -31,6 +31,10 @@ export class Calculator_button extends React.Component<calculator_buttonProps, {
                 output = "*";
                 break;
             }
+            case 15:{
+                output = "=";
+                break;
+            }
 
             default: {
                 output = digit.toString();

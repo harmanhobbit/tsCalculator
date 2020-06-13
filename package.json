@@ -1,7 +1,6 @@
 {
   "name": "calculator",
-  "version": "0.1.0",
-  "description": "",
+  "version": "0.1.2",
   "main": "webpack.config.js",
   "dependencies": {
     "react": "^16.13.1",
@@ -18,5 +17,6 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "description": ""
 }

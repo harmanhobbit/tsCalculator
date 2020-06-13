@@ -8,14 +8,30 @@ import { Number_Readout } from "./number_readout"
 var onScreenReadout: number = 0;
 
 let buttonLayout = [
-    [7, 8, 9, 13],
-    [4, 5, 6, 14]
+    {col1: 7, col2: 8, col3: 9, col4: 14},
+    {col1: 4, col2: 5, col3: 6, col4: 12},
+    {col1: 1, col2: 2, col3: 3, col4: 11},
+    {col1: 4, col2: 5, col3: 6, col4: 15},
 ]
 
 export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber: number}>{
     constructor(props: any){
         super(props);
         this.state = {ReadoutNumber: onScreenReadout}
+    }
+
+    generateButtons(){
+        return buttonLayout.map((button: {
+            col1: number;
+            col2: number;
+            col3: number;
+            col4: number}) =>
+            <div>
+                <Calculator_button value={button.col1} handleClick={() => this.clickHandler(button.col1)} />
+                <Calculator_button value={button.col2} handleClick={() => this.clickHandler(button.col2)} />
+                <Calculator_button value={button.col3} handleClick={() => this.clickHandler(button.col3)} />
+                <Calculator_button value={button.col4} handleClick={() => this.clickHandler(button.col4)} />
+            </div>)
     }
 
     addDigit(digit: number): number {
@@ -32,28 +48,7 @@ export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber:
             <div>
                 <Number_Readout readoutNumber={this.state.ReadoutNumber}/>
             </div>
-            <div>
-                <Calculator_button value={7} handleClick={() => this.clickHandler(7)} />
-                <Calculator_button value={8} handleClick={() => this.clickHandler(8)} />
-                <Calculator_button value={9} handleClick={() => this.clickHandler(9)} />
-                <Calculator_button value={13} handleClick={() => this.clickHandler(13)} />
-            </div>
-            <div>
-                <Calculator_button value={4} handleClick={() => this.clickHandler(4)} />
-                <Calculator_button value={5} handleClick={() => this.clickHandler(5)} />
-                <Calculator_button value={6} handleClick={() => this.clickHandler(6)} />
-                <Calculator_button value={14} handleClick={() => this.clickHandler(14)} />
-            </div>
-            <div>
-                <Calculator_button value={1} handleClick={() => this.clickHandler(1)} />
-                <Calculator_button value={2} handleClick={() => this.clickHandler(2)} />
-                <Calculator_button value={3} handleClick={() => this.clickHandler(3)} />
-                <Calculator_button value={12} handleClick={() => this.clickHandler(12)} />
-            </div>
-            <div>
-                <Calculator_button value={0} handleClick={() => this.clickHandler(0)} />
-                <Calculator_button value={10} handleClick={() => this.clickHandler(10)} />
-            </div>
+            {this.generateButtons()}
         </div>
     }
 }
