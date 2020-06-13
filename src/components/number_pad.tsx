@@ -9,6 +9,7 @@ import * as ButtonDefinitions from "./buttondefines"
 var onScreenReadout: number = 0.0;
 var memory: number = 0.0;
 var operator: number = ButtonDefinitions.NUMBER_BUTTON_PLUS;
+var decimalTracker: number = 0;
 
 let buttonLayout = [
     {col1: ButtonDefinitions.NUMBER_BUTTON_CLEAR, col2: ButtonDefinitions.NUMBER_BUTTON_INVERT, col3: ButtonDefinitions.NUMBER_BUTTON_PERCENT, col4: ButtonDefinitions.NUMBER_BUTTON_DIVIDE},
@@ -82,7 +83,7 @@ export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber:
                 }
             }
         }
-
+        decimalTracker = 0;
         return answer;
     }
 
@@ -92,6 +93,7 @@ export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber:
                 onScreenReadout = 0;
                 memory = 0;
                 operator = ButtonDefinitions.NUMBER_BUTTON_PLUS;
+                decimalTracker = 0;
                 break;
             }
 
@@ -146,8 +148,25 @@ export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber:
                 break;
             }
 
+            case ButtonDefinitions.NUMBER_BUTTON_DECIMAL_POINT:{
+                ++decimalTracker;
+                break;
+            }
+
             default:{
-                onScreenReadout = onScreenReadout * 10 + digit;
+                /*if(!decimalTracker){
+                    onScreenReadout = onScreenReadout * 10 + digit;
+                }
+                else{
+                    onScreenReadout = (onScreenReadout * Math.pow(10, decimalTracker) + digit)
+                    ++decimalTracker;
+                    onScreenReadout = onScreenReadout / Math.pow(10, decimalTracker);
+                }*/
+
+                onScreenReadout = ((onScreenReadout * Math.pow(10, decimalTracker)) + digit)
+                onScreenReadout = onScreenReadout / Math.pow(10, decimalTracker);
+                if(decimalTracker) ++decimalTracker;
+                
                 break;
             }
         }
