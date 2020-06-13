@@ -11,7 +11,7 @@ let buttonLayout = [
     {col1: 7, col2: 8, col3: 9, col4: 14},
     {col1: 4, col2: 5, col3: 6, col4: 12},
     {col1: 1, col2: 2, col3: 3, col4: 11},
-    {col1: 4, col2: 5, col3: 6, col4: 15},
+    {col1: 0, col2: 0, col3: 10, col4: 15},
 ]
 
 export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber: number}>{
