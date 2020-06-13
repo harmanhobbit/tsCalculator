@@ -149,7 +149,7 @@ export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber:
             }
 
             case ButtonDefinitions.NUMBER_BUTTON_DECIMAL_POINT:{
-                ++decimalTracker;
+                if(!decimalTracker) ++decimalTracker;
                 break;
             }
 
