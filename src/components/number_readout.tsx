@@ -8,6 +8,6 @@ export class Number_Readout extends React.Component<Number_readoutProps, {}>{
     //    this.state = {outputNumber: ""};
     //}
     render(){
-        return <p>{this.props.readoutNumber}</p>;
+        return <div className="readout">{this.props.readoutNumber}</div>;
     }
 }

@@ -13,9 +13,9 @@ var decimalTracker: number = 0;
 
 let buttonLayout = [
     {col1: ButtonDefinitions.NUMBER_BUTTON_CLEAR, col1Class: "operator_style",
-    col2: ButtonDefinitions.NUMBER_BUTTON_INVERT,  col2Class: "operator_style",
-    col3: ButtonDefinitions.NUMBER_BUTTON_PERCENT,  col3Class: "operator_style",
-    col4: ButtonDefinitions.NUMBER_BUTTON_DIVIDE,  col4Class: "operator_style"},
+    col2: ButtonDefinitions.NUMBER_BUTTON_INVERT, col2Class: "operator_style",
+    col3: ButtonDefinitions.NUMBER_BUTTON_PERCENT, col3Class: "operator_style",
+    col4: ButtonDefinitions.NUMBER_BUTTON_DIVIDE, col4Class: "operator_style"},
 
     {col1: 7, col1Class: "button_style",
     col2: 8, col2Class: "button_style",
@@ -32,8 +32,8 @@ let buttonLayout = [
     col3: 3, col3Class: "button_style",
     col4: ButtonDefinitions.NUMBER_BUTTON_PLUS, col4Class: "operator_style"},
 
-    {col1: 0, col1Class: "button_style",
-    col2: 0, col2Class: "button_style",
+    {col1: 0, col1Class: "button_style pad-0",
+    col2: 50, col2Class: "hide",
     col3: ButtonDefinitions.NUMBER_BUTTON_DECIMAL_POINT, col3Class: "button_style",
     col4: ButtonDefinitions.NUMBER_BUTTON_EQUALS, col4Class: "operator_style"},
 ]
@@ -53,8 +53,8 @@ export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber:
             col3: number;
             col3Class: string;
             col4: number;
-            col4Class: string}) =>
-            <div>
+            col4Class: string}) => 
+            <div className="pad-row">
                 <Calculator_button 
                     value={button.col1} 
                     handleClick={() => this.clickHandler(button.col1)} 
@@ -183,6 +183,11 @@ export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber:
                 break;
             }
 
+            case ButtonDefinitions.NUMBER_BUTTON_INVERT:{
+                onScreenReadout = -onScreenReadout;
+                break;
+            }
+
             case ButtonDefinitions.NUMBER_BUTTON_DECIMAL_POINT:{
                 if(!decimalTracker) ++decimalTracker;
                 break;
@@ -197,10 +202,15 @@ export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber:
                     ++decimalTracker;
                     onScreenReadout = onScreenReadout / Math.pow(10, decimalTracker);
                 }*/
-
-                onScreenReadout = ((onScreenReadout * Math.pow(10, decimalTracker)) + digit)
-                onScreenReadout = onScreenReadout / Math.pow(10, decimalTracker);
-                if(decimalTracker) ++decimalTracker;
+                
+                if(decimalTracker){
+                    onScreenReadout = ((onScreenReadout * Math.pow(10, decimalTracker)) + digit)
+                    onScreenReadout = onScreenReadout / Math.pow(10, decimalTracker);
+                    ++decimalTracker;
+                } 
+                else{
+                    onScreenReadout = onScreenReadout * 10 + digit;
+                }
                 
                 break;
             }
@@ -214,8 +224,8 @@ export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber:
     }
 
     render(){
-        return <div>
-            <div>
+        return <div className="pad-wrapper">
+            <div className="pad-row">
                 <Number_Readout readoutNumber={this.state.ReadoutNumber}/>
             </div>
             {this.generateButtons()}

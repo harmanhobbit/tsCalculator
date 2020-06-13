@@ -61,12 +61,23 @@ export class Calculator_button extends React.Component<calculator_buttonProps, {
         return output;
     }
 
-    render(){
-        return <input   type="button" 
-                        className={this.props.buttonClass} 
+    no50Button(){
+        if(this.props.value != 50){
+            return <input   type="button" 
+                        className={this.props.buttonClass}
                         value={this.checkForSingleDigit(this.props.value)} 
                         onClick={() => this.clickHandler(this.props.value)} />
+        }
+        return <div className="hide"></div>;
     }
+
+    render(){
+        return this.no50Button();//<input   type="button" 
+                        //className={this.props.buttonClass}
+                        //value={this.checkForSingleDigit(this.props.value)} 
+                        //onClick={() => this.clickHandler(this.props.value)} />
+    }
+
     clickHandler(test: number){
         this.props.handleClick(test);
     }
