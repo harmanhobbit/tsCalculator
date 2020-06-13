@@ -1,6 +1,6 @@
 {
   "name": "calculator",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "main": "webpack.config.js",
   "dependencies": {
     "react": "^16.13.1",
