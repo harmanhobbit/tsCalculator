@@ -6,7 +6,9 @@ import { Calculator_button } from "./calculator_button";
 import { Number_Readout } from "./number_readout"
 import * as ButtonDefinitions from "./buttondefines"
 
-var onScreenReadout: number = 0;
+var onScreenReadout: number = 0.0;
+var memory: number = 0.0;
+var operator: number = ButtonDefinitions.NUMBER_BUTTON_PLUS;
 
 let buttonLayout = [
     {col1: ButtonDefinitions.NUMBER_BUTTON_CLEAR, col2: ButtonDefinitions.NUMBER_BUTTON_INVERT, col3: ButtonDefinitions.NUMBER_BUTTON_PERCENT, col4: ButtonDefinitions.NUMBER_BUTTON_DIVIDE},
@@ -36,10 +38,111 @@ export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber:
             </div>)
     }
 
+    buttonOperator(operatorDigit: number, number1: number, number2: number): number{
+        let answer: number = 0;
+
+        if(operator === ButtonDefinitions.NUMBER_BUTTON_EQUALS){
+            answer = number2;
+        }
+        else{
+            switch(operatorDigit){
+                case ButtonDefinitions.NUMBER_BUTTON_PLUS:{
+                    answer = number1 + number2;
+                    break;
+                }
+
+                case ButtonDefinitions.NUMBER_BUTTON_MINUS:{
+                    answer = number1 - number2;
+                    break;
+                }
+
+                case ButtonDefinitions.NUMBER_BUTTON_MULTIPLY:{
+                    answer = number1 * number2;
+                    break;
+                }
+
+                case ButtonDefinitions.NUMBER_BUTTON_DIVIDE:{
+                    answer = number1 / number2;
+                    break;
+                }
+
+                case ButtonDefinitions.NUMBER_BUTTON_PERCENT:{
+                    answer = number2 / number1 * 100;
+                    break;
+                }
+
+                case ButtonDefinitions.NUMBER_BUTTON_EQUALS:{
+                    answer = number1;
+                    break;
+                }
+
+                default:{
+                    answer = 999;
+                    break;
+                }
+            }
+        }
+
+        return answer;
+    }
+
     addDigit(digit: number): number {
         switch(digit){
             case ButtonDefinitions.NUMBER_BUTTON_CLEAR:{
                 onScreenReadout = 0;
+                memory = 0;
+                operator = ButtonDefinitions.NUMBER_BUTTON_PLUS;
+                break;
+            }
+
+            case ButtonDefinitions.NUMBER_BUTTON_PLUS:{
+                    memory = this.buttonOperator(operator,
+                                                memory,
+                                                onScreenReadout);
+                    onScreenReadout = 0;
+                operator = ButtonDefinitions.NUMBER_BUTTON_PLUS;
+                break;
+            }
+
+            case ButtonDefinitions.NUMBER_BUTTON_MINUS:{
+                memory = this.buttonOperator(operator,
+                                            memory,
+                                            onScreenReadout);
+                    onScreenReadout = 0;
+                    operator = ButtonDefinitions.NUMBER_BUTTON_MINUS;
+                    break;
+            }
+
+            case ButtonDefinitions.NUMBER_BUTTON_MULTIPLY:{
+                memory = this.buttonOperator(operator,
+                                            memory,
+                                            onScreenReadout);
+                onScreenReadout = 0;
+                operator = ButtonDefinitions.NUMBER_BUTTON_MULTIPLY;
+                break;
+            }
+
+            case ButtonDefinitions.NUMBER_BUTTON_DIVIDE:{
+                memory = this.buttonOperator(operator,
+                                            memory,
+                                            onScreenReadout);
+                onScreenReadout = 0;
+                operator = ButtonDefinitions.NUMBER_BUTTON_DIVIDE;
+                break;
+            }
+
+            case ButtonDefinitions.NUMBER_BUTTON_PERCENT:{
+                memory = this.buttonOperator(operator,
+                                            memory,
+                                            onScreenReadout);
+                onScreenReadout = 0;
+                operator = ButtonDefinitions.NUMBER_BUTTON_PERCENT;
+                break;
+            }
+
+            case ButtonDefinitions.NUMBER_BUTTON_EQUALS:{
+                onScreenReadout = this.buttonOperator(operator, memory, onScreenReadout);
+                operator = ButtonDefinitions.NUMBER_BUTTON_EQUALS;
                 break;
             }
 
