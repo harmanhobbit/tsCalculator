@@ -7,5 +7,5 @@ ReactDOM.render(
     <div>
         <Number_pad />
     </div>,
-    document.getElementById("example")
+    document.getElementById("maincontainer")
 );
