@@ -4,14 +4,16 @@ export interface Number_padProps {}
 
 import { Calculator_button } from "./calculator_button";
 import { Number_Readout } from "./number_readout"
+import * as ButtonDefinitions from "./buttondefines"
 
 var onScreenReadout: number = 0;
 
 let buttonLayout = [
-    {col1: 7, col2: 8, col3: 9, col4: 14},
-    {col1: 4, col2: 5, col3: 6, col4: 12},
-    {col1: 1, col2: 2, col3: 3, col4: 11},
-    {col1: 0, col2: 0, col3: 10, col4: 15},
+    {col1: ButtonDefinitions.NUMBER_BUTTON_CLEAR, col2: ButtonDefinitions.NUMBER_BUTTON_INVERT, col3: ButtonDefinitions.NUMBER_BUTTON_PERCENT, col4: ButtonDefinitions.NUMBER_BUTTON_DIVIDE},
+    {col1: 7, col2: 8, col3: 9, col4: ButtonDefinitions.NUMBER_BUTTON_MULTIPLY},
+    {col1: 4, col2: 5, col3: 6, col4: ButtonDefinitions.NUMBER_BUTTON_MINUS},
+    {col1: 1, col2: 2, col3: 3, col4: ButtonDefinitions.NUMBER_BUTTON_PLUS},
+    {col1: 0, col2: 0, col3: ButtonDefinitions.NUMBER_BUTTON_DECIMAL_POINT, col4: ButtonDefinitions.NUMBER_BUTTON_EQUALS},
 ]
 
 export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber: number}>{
@@ -35,7 +37,18 @@ export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber:
     }
 
     addDigit(digit: number): number {
-        return onScreenReadout = onScreenReadout * 10 + digit;
+        switch(digit){
+            case ButtonDefinitions.NUMBER_BUTTON_CLEAR:{
+                onScreenReadout = 0;
+                break;
+            }
+
+            default:{
+                onScreenReadout = onScreenReadout * 10 + digit;
+                break;
+            }
+        }
+        return onScreenReadout;
     }
 
     clickHandler(test: number){

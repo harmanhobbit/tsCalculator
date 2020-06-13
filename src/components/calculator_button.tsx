@@ -1,5 +1,6 @@
 import * as React from "react";
-import { any } from "prop-types";
+import * as ButtonDefinitions from "./buttondefines"
+
 
 export interface calculator_buttonProps {value: number, handleClick: any}
 
@@ -7,35 +8,51 @@ export class Calculator_button extends React.Component<calculator_buttonProps, {
     checkForSingleDigit(digit: number): string{
         let output: string;
         switch (digit){
-            case 10:{
+            case ButtonDefinitions.NUMBER_BUTTON_DECIMAL_POINT:{
                 output = ".";
                 break;
             }
 
-            case 11:{
+            case ButtonDefinitions.NUMBER_BUTTON_PLUS:{
                 output = "+";
                 break;
             }
 
-            case 12:{
+            case ButtonDefinitions.NUMBER_BUTTON_MINUS:{
                 output = "-";
                 break;
             }
 
-            case 13:{
+            case ButtonDefinitions.NUMBER_BUTTON_DIVIDE:{
                 output = "/";
                 break;
             }
 
-            case 14:{
+            case ButtonDefinitions.NUMBER_BUTTON_MULTIPLY:{
                 output = "*";
                 break;
             }
-            case 15:{
+
+            case ButtonDefinitions.NUMBER_BUTTON_EQUALS:{
                 output = "=";
                 break;
             }
 
+            case ButtonDefinitions.NUMBER_BUTTON_CLEAR:{
+                output = "C";
+                break;
+            }
+
+            case ButtonDefinitions.NUMBER_BUTTON_PERCENT:{
+                output = "%";
+                break;
+            }
+
+            case ButtonDefinitions.NUMBER_BUTTON_INVERT:{
+                output = "-/+";
+                break;
+            }
+            
             default: {
                 output = digit.toString();
                 break;
