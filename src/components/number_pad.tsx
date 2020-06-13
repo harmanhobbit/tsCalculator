@@ -3,8 +3,8 @@ import * as React from "react"
 export interface Number_padProps {}
 
 import { Calculator_button } from "./calculator_button";
-import { Number_Readout } from "./number_readout"
-import * as ButtonDefinitions from "./buttondefines"
+import { Number_Readout } from "./number_readout";
+import * as ButtonDefinitions from "./buttondefines";
 
 var onScreenReadout: number = 0.0;
 var memory: number = 0.0;
@@ -12,30 +12,26 @@ var operator: number = ButtonDefinitions.NUMBER_BUTTON_PLUS;
 var decimalTracker: number = 0;
 
 let buttonLayout = [
-    {col1: ButtonDefinitions.NUMBER_BUTTON_CLEAR, col1Class: "operator_style",
-    col2: ButtonDefinitions.NUMBER_BUTTON_INVERT, col2Class: "operator_style",
-    col3: ButtonDefinitions.NUMBER_BUTTON_PERCENT, col3Class: "operator_style",
-    col4: ButtonDefinitions.NUMBER_BUTTON_DIVIDE, col4Class: "operator_style"},
-
-    {col1: 7, col1Class: "button_style",
-    col2: 8, col2Class: "button_style",
-    col3: 9, col3Class: "button_style",
-    col4: ButtonDefinitions.NUMBER_BUTTON_MULTIPLY, col4Class: "operator_style"},
-
-    {col1: 4, col1Class: "button_style",
-    col2: 5, col2Class: "button_style",
-    col3: 6, col3Class: "button_style",
-    col4: ButtonDefinitions.NUMBER_BUTTON_MINUS, col4Class: "operator_style"},
-
-    {col1: 1, col1Class: "button_style",
-    col2: 2, col2Class: "button_style",
-    col3: 3, col3Class: "button_style",
-    col4: ButtonDefinitions.NUMBER_BUTTON_PLUS, col4Class: "operator_style"},
-
-    {col1: 0, col1Class: "button_style pad-0",
-    col2: 50, col2Class: "hide",
-    col3: ButtonDefinitions.NUMBER_BUTTON_DECIMAL_POINT, col3Class: "button_style",
-    col4: ButtonDefinitions.NUMBER_BUTTON_EQUALS, col4Class: "operator_style"},
+    {col: ButtonDefinitions.NUMBER_BUTTON_CLEAR, colClass: "operator_style"},
+    {col: ButtonDefinitions.NUMBER_BUTTON_INVERT, colClass: "operator_style"},
+    {col: ButtonDefinitions.NUMBER_BUTTON_PERCENT, colClass: "operator_style"},
+    {col: ButtonDefinitions.NUMBER_BUTTON_DIVIDE, colClass: "operator_style"},
+    {col: 7, colClass: "button_style"},
+    {col: 8, colClass: "button_style"},
+    {col: 9, colClass: "button_style"},
+    {col: ButtonDefinitions.NUMBER_BUTTON_MULTIPLY, colClass: "operator_style"},
+    {col: 4, colClass: "button_style"},
+    {col: 5, colClass: "button_style"},
+    {col: 6, colClass: "button_style"},
+    {col: ButtonDefinitions.NUMBER_BUTTON_MINUS, colClass: "operator_style"},
+    {col: 1, colClass: "button_style"},
+    {col: 2, colClass: "button_style"},
+    {col: 3, colClass: "button_style"},
+    {col: ButtonDefinitions.NUMBER_BUTTON_PLUS, colClass: "operator_style"},
+    {col: 0, colClass: "button_style pad-0"},
+    {col: {}, colClass: "hide"},
+    {col: ButtonDefinitions.NUMBER_BUTTON_DECIMAL_POINT, colClass: "button_style"},
+    {col: ButtonDefinitions.NUMBER_BUTTON_EQUALS, colClass: "operator_style"},
 ]
 
 export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber: number}>{
@@ -44,7 +40,7 @@ export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber:
         this.state = {ReadoutNumber: onScreenReadout}
     }
 
-    generateButtons(){
+/*    generateButtons(){
         return buttonLayout.map((button: {
             col1: number;
             col1Class: string;
@@ -73,7 +69,7 @@ export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber:
                     buttonClass={button.col4Class} />
             </div>)
     }
-
+*/
     buttonOperator(operatorDigit: number, number1: number, number2: number): number{
         let answer: number = 0;
 
@@ -225,10 +221,15 @@ export class Number_pad extends React.Component<Number_padProps, {ReadoutNumber:
 
     render(){
         return <div className="pad-wrapper">
-            <div className="pad-row">
-                <Number_Readout readoutNumber={this.state.ReadoutNumber}/>
-            </div>
-            {this.generateButtons()}
+            <Number_Readout readoutNumber={this.state.ReadoutNumber} />
+            {buttonLayout.map((button: {
+                col: number;
+                colClass: string;}) => 
+                    <Calculator_button  value={button.col} 
+                                        handleClick={() => this.clickHandler(button.col)} 
+                                        buttonClass={button.colClass} />
+            )};
+            
         </div>
     }
 }
